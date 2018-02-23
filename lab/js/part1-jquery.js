@@ -171,5 +171,85 @@ var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/ton
 // the function passed to `ready` until the HTML document is fully loaded and all scripts have
 // been interpreted. It is, therefore, an example of asynchronous behavior.
 $(document).ready(function() {
-  // Do your stuff here
+  //Set the laberls
+  $("#main-heading").text("Student Registration");
+  $("#text-label1").text("School");
+  $("#text-label2").text("Name");
+  $("#text-label3").text("Address");
+  $("#number-label1").text("Zipcode");
+  $("#number-label2").text("Latitude");
+  $("#number-label3").text("Longitude");
+  $("#checkbox-label1").text("US Citizen");
+  $("#checkbox-label2").text("Enrolled");
+  $("#color-label").text("Color");
+  $("button").text("Submit");
+ //Set Default values
+  $("#text-input1").val("PennDesign");
+  $("#text-input2").val("Chenran Wu");
+  $("#text-input3").val("4111 Walnut Street");
+  $("#numeric-input1").val(19104);
+  $("#numeric-input2").val(39.954916);
+  $("#numeric-input3").val(-75.205698);
+  $("#color-input").val("#abcdef");
+
+  //Get values
+   var student;
+   var value1, value2,value3, value4, value5, value6, value7, value8, value9;
+   var getvalues = function(){
+   value1 = $("#text-input1").val();
+   value2 = $("#text-input2").val();
+   value3 = $("#text-input3").val();
+   value4 = $("#numeric-input1").val();
+   value5 = $("#numeric-input2").val();
+   value6 = $("#numeric-input3").val();
+   value7 = $("#cbox-input1")[0].checked;
+   value8 = $("#cbox-input2")[0].checked;
+   value9 = $("#color-input").val();
+   student={"School": value1, "Name": value2, "Address": value3, "Zipcode": value4, "Latitude": value5, "Longitude": value6, "US Citizen": value7, "Enrolled": value8, "Color": value9};
+   return student;
+ }
+  //Enable
+  $("#text-input1").prop("disabled", false);
+  $("#text-input2").prop("disabled", false);
+  $("#text-input3").prop("disabled", false);
+  $("#numeric-input1").prop("disabled", false);
+  $("#numeric-input2").prop("disabled", false);
+  $("#numeric-input3").prop("disabled", false);
+  $("#cbox-input1").prop("disabled", false);
+  $("#cbox-input2").prop( "checked", true );
+  $("#cbox-input2").prop("disabled", false);
+  //Button trigger and plot data
+  var myMarkers=[];
+  var Marker;
+  $('button').click(function(e) {
+    getvalues();
+    console.log(student);
+    var plotData = function() {
+       if(value1==""){value1 = "PennDesign"};
+       if(value2==""){value2 = "Chenran Wu"};
+       if(value3==""){value3 = "4111 Walnut Street"};
+       if(value4==""){value4 = 19104};
+       if(value5==""){value5 = 39.954916};
+       if(value6==""){value6 = -75.205698};
+       if(value7==""){value7 = false};
+       if(value8==""){value8 = false};
+       if(value9==""){value9 = "#abcdef"};
+       var markstyle = {
+            radius: 8,
+            fillColor: student.Color,
+            color: 'black',
+            weight: 1,
+            opacity: 1,
+            fillOpacity: 0.8
+        };
+         Marker = L.circleMarker([student.Latitude, student.Longitude], markstyle);
+         myMarkers.push(Marker);
+         return Marker.addTo(map).bindPopup(student.School + " " +student.Name).openPopup();
+       }
+   plotData();
+  })
+
+
+
+
 });
