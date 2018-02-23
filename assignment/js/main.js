@@ -56,11 +56,7 @@ var ParseData = function(data) {
      console.log(markers);
      plotMarkers(markers);
    });
-  /* ParseData();
-   console.log(parsed);
-   markers = makeMarkers(parsed);
-   console.log(markers);
-   plotMarkers(markers); */
+
  })
 
 
